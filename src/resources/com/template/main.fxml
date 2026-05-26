@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #282828;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.template.MainController">
+    <children>
+        <VBox spacing="18.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+
+                <Label text="Gerenciador de Distros Linux" textFill="WHITE">
+                    <font>
+                        <Font name="Segoe UI Bold" size="22.0" />
+                    </font>
+                </Label>
+
+                <TableView fx:id="tblDistro" prefHeight="260.0" prefWidth="710.0" style="-fx-background-color: #1E1E1E; -fx-border-color: #3A3A3A; -fx-background-radius: 6; -fx-border-radius: 6; -fx-text-inner-color: white;" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" minWidth="50.0" prefWidth="60.0" text="ID" />
+                        <TableColumn fx:id="colName" minWidth="100.0" prefWidth="160.0" text="Nome" />
+                        <TableColumn fx:id="colBase" minWidth="100.0" prefWidth="160.0" text="Base" />
+                        <TableColumn fx:id="colPackageManager" minWidth="100.0" prefWidth="160.0" text="Gerenciador" />
+                        <TableColumn fx:id="colEnvironment" minWidth="100.0" prefWidth="160.0" text="Interface" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+
+                <HBox alignment="CENTER" spacing="15.0">
+                    <children>
+                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Nome da Distro" textFill="#DCDCDC">
+                                    <font>
+                                        <Font name="Segoe UI" size="13.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtName" promptText="Ex: Ubuntu" style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Base" textFill="#DCDCDC">
+                                    <font>
+                                        <Font name="Segoe UI" size="13.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtBase" promptText="Ex: Debian" style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Gerenciador" textFill="#DCDCDC">
+                                    <font>
+                                        <Font name="Segoe UI" size="13.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtPM" promptText="Ex: apt" style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;" />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Interface" textFill="#DCDCDC">
+                                    <font>
+                                        <Font name="Segoe UI" size="13.0" />
+                                    </font>
+                                </Label>
+                                <TextField fx:id="txtEnvironment" promptText="Ex: GNOME" style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                    <children>
+                        <Button fx:id="btnClear" mnemonicParsing="false" style="-fx-background-color: #31c3e0; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;" text="Limpar" />
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <Button fx:id="btnRegister" mnemonicParsing="false" style="-fx-background-color: #34e070; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;" text="Adicionar" />
+
+                        <Button fx:id="btnUpdate" mnemonicParsing="false" style="-fx-background-color: #ff722b; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;" text="Atualizar" />
+
+                        <Button fx:id="btnDelete" mnemonicParsing="false" style="-fx-background-color: #ff2b4b; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;" text="Excluir" />
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
