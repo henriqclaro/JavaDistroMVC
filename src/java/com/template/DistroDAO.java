@@ -43,6 +43,7 @@ public class DistroDAO {
         ) {
             while (resultSet.next()) {
                 DistroDTO distro = new DistroDTO();
+                distro.setId(resultSet.getInt("id"));
                 distro.setName(resultSet.getString("name"));
                 distro.setBase(resultSet.getString("base"));
                 distro.setPackageManager(resultSet.getString("package_manager"));
