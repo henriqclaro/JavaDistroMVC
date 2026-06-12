@@ -1,0 +1,52 @@
+#comboEnvironment > .text-field {
+    -fx-prompt-text-fill: #808080;
+}
+
+.table-view {
+    -fx-background-color: #121212;
+    -fx-border-color: #3A3A3A;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 2;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #181818;
+    -fx-background-radius: 6 6 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 35px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #282828;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #A0A0A0;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #DCDCDC;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #1A1A1A;
+    -fx-font-family: "Segoe UI";
+}
+
+.table-row-cell {
+    -fx-background-color: #121212;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #181818;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #31c3e0;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: black;
+}

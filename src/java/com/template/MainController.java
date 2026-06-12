@@ -1,14 +1,14 @@
 package com.template;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class MainController {
     @FXML
@@ -30,6 +30,18 @@ public class MainController {
     private TableColumn<DistroDTO, String> colEnvironment;
 
     @FXML
+    private Button btnClear;
+
+    @FXML
+    private Button btnRegister;
+
+    @FXML
+    private Button btnUpdate;
+
+    @FXML
+    private Button btnDelete;
+
+    @FXML
     private TextField txtName;
 
     @FXML
@@ -39,7 +51,7 @@ public class MainController {
     private TextField txtPkgMng;
 
     @FXML
-    private TextField txtEnvironment;
+    private ComboBox<String> comboEnvironment;
 
     @FXML
     private void initialize() {
@@ -48,16 +60,76 @@ public class MainController {
         colBase.setCellValueFactory(new PropertyValueFactory<>("base"));
         colPackageManager.setCellValueFactory(new PropertyValueFactory<>("packageManager"));
         colEnvironment.setCellValueFactory(new PropertyValueFactory<>("environment"));
-        System.out.println("FXML loaded successfully!");
 
+        comboEnvironment.getEditor().setStyle("-fx-prompt-text-fill: #808080");
+
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "GNOME", "KDE Plasma", "Xfce", "Cinnamon", "MATE", "LXQt", "LXDE", "Budgie", "Deepin", "Pantheon",
+                "COSMIC", "Enlightenment", "UKUI", "Trinity", "Lumina", "Sugar", "PIXEL", "Cutefish"
+        );
+
+        comboEnvironment.setItems(options);
+
+        checkForm();
         loadDistro();
+        clearForm();
+    }
+
+    private void loadDistro() {
+        DistroDAO objDistroDAO = new DistroDAO();
+        ArrayList<DistroDTO> distroList = objDistroDAO.selectDistro();
+        tblDistro.setItems(FXCollections.observableArrayList(distroList));
+    }
+
+    private void clearForm() {
+        txtName.clear();
+        txtBase.clear();
+        txtPkgMng.clear();
+        comboEnvironment.setValue(null);
+        tblDistro.getSelectionModel().clearSelection();
+
+        btnClear.setDisable(true);
+    }
+
+    private boolean isBaseOk() {
+        if (txtBase.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confimação");
+            alert.setHeaderText(null);
+            alert.setContentText("O campo de Base está vazio. A Distro será cadastrada como 'independent'.");
+
+            ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            alert.getButtonTypes().setAll(buttonTypeOk, buttonTypeCancel);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == buttonTypeOk) {
+                txtBase.setText("independent");
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     @FXML
-    private void loadDistro() {
-        DistroDAO objDistroDAO = new DistroDAO();
-        ArrayList<DistroDTO> distrosList = objDistroDAO.selectDistro();
-        tblDistro.setItems(FXCollections.observableArrayList(distrosList));
+    private void checkForm() {
+        btnClear.setDisable(false);
+
+        if (tblDistro.getSelectionModel().getSelectedItem() == null) {
+            btnUpdate.setDisable(true);
+            btnDelete.setDisable(true);
+        } else {
+            btnUpdate.setDisable(false);
+            btnDelete.setDisable(false);
+        }
+
+        if (txtName.getText().isEmpty() || txtPkgMng.getText().isEmpty() || comboEnvironment.getValue() == null) {
+            btnRegister.setDisable(true);
+        } else {
+            btnRegister.setDisable(false);
+        }
     }
 
     @FXML
@@ -68,16 +140,15 @@ public class MainController {
             txtName.setText(objDistroDTO.getName());
             txtBase.setText(objDistroDTO.getBase());
             txtPkgMng.setText(objDistroDTO.getPackageManager());
-            txtEnvironment.setText(objDistroDTO.getEnvironment());
+            comboEnvironment.setValue(objDistroDTO.getEnvironment());
         }
+
+        checkForm();
     }
 
     @FXML
     private void btnClearAction(ActionEvent event) {
-        txtName.clear();
-        txtBase.clear();
-        txtPkgMng.clear();
-        txtEnvironment.clear();
+        clearForm();
     }
 
     @FXML
@@ -85,9 +156,14 @@ public class MainController {
         DistroDTO objNewDistro = new DistroDTO();
 
         String name = txtName.getText();
-        String base = txtBase.getText();
         String pkgMng = txtPkgMng.getText();
-        String environment = txtEnvironment.getText();
+        String environment = comboEnvironment.getValue().toString();
+
+        if (!isBaseOk()) {
+            return;
+        }
+
+        String base = txtBase.getText();
 
         objNewDistro.setName(name);
         objNewDistro.setBase(base);
@@ -98,6 +174,8 @@ public class MainController {
         objDistroDAO.registerDistro(objNewDistro);
 
         loadDistro();
+        clearForm();
+        checkForm();
     }
 
     @FXML
@@ -105,9 +183,14 @@ public class MainController {
         DistroDTO objUpdatedDistro = new DistroDTO();
 
         String name = txtName.getText();
-        String base = txtBase.getText();
         String pkgMng = txtPkgMng.getText();
-        String environment = txtEnvironment.getText();
+        String environment = comboEnvironment.getValue().toString();
+
+        if (!isBaseOk()) {
+            return;
+        }
+
+        String base = txtBase.getText();
 
         objUpdatedDistro.setId(tblDistro.getSelectionModel().getSelectedItem().getId());
         objUpdatedDistro.setName(name);
@@ -119,10 +202,26 @@ public class MainController {
         objDistroDAO.updateDistro(objUpdatedDistro);
 
         loadDistro();
+        clearForm();
+        checkForm();
     }
 
     @FXML
     private void btnDeleteAction(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmação");
+        alert.setHeaderText(null);
+        alert.setContentText("Deseja realmente deletar esta Distro?");
+
+        ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeCancel = new ButtonType("Cancel");
+        alert.getButtonTypes().setAll(buttonTypeOk, buttonTypeCancel);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() != buttonTypeOk) {
+            return;
+        }
+
         DistroDTO objDeletedDistro = new DistroDTO();
 
         objDeletedDistro.setId(tblDistro.getSelectionModel().getSelectedItem().getId());
@@ -131,5 +230,7 @@ public class MainController {
         objDistroDAO.deleteDistro(objDeletedDistro);
 
         loadDistro();
+        clearForm();
+        checkForm();
     }
 }
