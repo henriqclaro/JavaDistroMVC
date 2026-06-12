@@ -45,7 +45,7 @@
                     <children>
                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label text="Nome da Distro" textFill="#DCDCDC">
+                                <Label text="Nome da Distro *" textFill="#DCDCDC">
                                     <font>
                                         <Font name="Segoe UI" size="13.0"/>
                                     </font>
@@ -71,7 +71,7 @@
 
                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label text="Gerenciador" textFill="#DCDCDC">
+                                <Label text="Gerenciador *" textFill="#DCDCDC">
                                     <font>
                                         <Font name="Segoe UI" size="13.0"/>
                                     </font>
@@ -84,7 +84,7 @@
 
                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label text="Interface" textFill="#DCDCDC">
+                                <Label text="Interface *" textFill="#DCDCDC">
                                     <font>
                                         <Font name="Segoe UI" size="13.0"/>
                                     </font>

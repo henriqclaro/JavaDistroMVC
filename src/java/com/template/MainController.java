@@ -88,7 +88,6 @@ public class MainController {
         comboEnvironment.setValue(null);
         tblDistro.getSelectionModel().clearSelection();
 
-        btnClear.setDisable(true);
     }
 
     private boolean isBaseOk() {
@@ -115,8 +114,6 @@ public class MainController {
 
     @FXML
     private void checkForm() {
-        btnClear.setDisable(false);
-
         if (tblDistro.getSelectionModel().getSelectedItem() == null) {
             btnUpdate.setDisable(true);
             btnDelete.setDisable(true);
@@ -149,6 +146,7 @@ public class MainController {
     @FXML
     private void btnClearAction(ActionEvent event) {
         clearForm();
+        checkForm();
     }
 
     @FXML
