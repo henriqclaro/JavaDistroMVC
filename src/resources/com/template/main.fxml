@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #282828;"
             stylesheets="@styles.css"
             xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1"
@@ -27,7 +29,14 @@
                     </font>
                 </Label>
 
-                <TableView fx:id="tblDistro" onMouseClicked="#loadField" prefHeight="260.0" prefWidth="643.0"
+                <ImageView fitWidth="65.0" fitHeight="65.0" preserveRatio="true" pickOnBounds="true" viewOrder="-1.0" translateX="24">
+                    <image>
+                        <Image url="@assets/like.png"/>
+                    </image>
+                </ImageView>
+
+                <TableView fx:id="tblDistro" onMouseClicked="#loadField" prefHeight="260.0" prefWidth="643.0" translateY="-33.1,
+0"
                            VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="colId" minWidth="50.0" prefWidth="60.0" text="ID"/>
@@ -51,8 +60,7 @@
                                     </font>
                                 </Label>
                                 <TextField fx:id="txtName" onKeyTyped="#checkForm" promptText="Ex: Ubuntu"
-                                           prefHeight="33.0"
-                                           style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;"/>
+                                           prefHeight="33.0"/>
                             </children>
                         </VBox>
 
@@ -64,8 +72,7 @@
                                     </font>
                                 </Label>
                                 <TextField fx:id="txtBase" onKeyTyped="#checkForm" promptText="Ex: Debian"
-                                           prefHeight="33.0"
-                                           style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;"/>
+                                           prefHeight="33.0"/>
                             </children>
                         </VBox>
 
@@ -77,8 +84,7 @@
                                     </font>
                                 </Label>
                                 <TextField fx:id="txtPkgMng" onKeyTyped="#checkForm" promptText="Ex: apt"
-                                           prefHeight="33.0"
-                                           style="-fx-background-color: #1E1E1E; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 7;"/>
+                                           prefHeight="33.0"/>
                             </children>
                         </VBox>
 
@@ -90,8 +96,7 @@
                                     </font>
                                 </Label>
                                 <ComboBox fx:id="comboEnvironment" editable="true" maxWidth="Infinity"
-                                          onAction="#checkForm" promptText="Ex: GNOME" prefHeight="33.0"
-                                          style="-fx-background-color: #1E1E1E; -fx-control-inner-background: #1E1E1E; -fx-text-inner-color: white; -fx-border-color: #4A4A4A; -fx-border-radius: 4; -fx-background-radius: 4;"/>
+                                          onAction="#checkForm" promptText="Ex: GNOME" prefHeight="33.0"/>
                             </children>
                         </VBox>
                     </children>
@@ -100,20 +105,26 @@
                 <HBox alignment="CENTER_RIGHT" spacing="12.0">
                     <children>
                         <Button fx:id="btnClear" mnemonicParsing="false" onAction="#btnClearAction"
-                                style="-fx-background-color: #31c3e0; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;"
+                                style="-fx-background-color: #31c3e0;"
                                 text="Limpar"/>
+
+                        <ImageView fitWidth="40.0" fitHeight="40.0" preserveRatio="true" pickOnBounds="true">
+                            <image>
+                                <Image url="@assets/Tux.png"/>
+                            </image>
+                        </ImageView>
                         <Region HBox.hgrow="ALWAYS"/>
 
                         <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#btnRegisterAction"
-                                style="-fx-background-color: #34e070; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;"
+                                style="-fx-background-color: #34e070;"
                                 text="Adicionar"/>
 
                         <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateAction"
-                                style="-fx-background-color: #ff722b; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;"
+                                style="-fx-background-color: #ff722b;"
                                 text="Atualizar"/>
 
                         <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeleteAction"
-                                style="-fx-background-color: #ff2b4b; -fx-text-fill: white; -fx-font-family: 'Segoe UI'; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 8 22 8 22; -fx-cursor: hand;"
+                                style="-fx-background-color: #ff2b4b;"
                                 text="Excluir"/>
                     </children>
                 </HBox>
