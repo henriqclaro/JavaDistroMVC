@@ -1,5 +1,7 @@
-package com.template;
+package com.template.controller;
 
+import com.template.model.dao.DistroDAO;
+import com.template.model.dto.DistroDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static com.template.util.DialogUtil.*;
 
 public class MainController {
     @FXML
@@ -87,22 +91,13 @@ public class MainController {
         txtPkgMng.clear();
         comboEnvironment.setValue(null);
         tblDistro.getSelectionModel().clearSelection();
-
     }
 
     private boolean isBaseOk() {
         if (txtBase.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confimação");
-            alert.setHeaderText(null);
-            alert.setContentText("O campo de Base está vazio. A Distro será cadastrada como 'independent'.");
+            boolean dialogResult = showConfirmation("O campo de Base está vazio. A Distro será cadastrada como 'independent'.");
 
-            ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-            ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-            alert.getButtonTypes().setAll(buttonTypeOk, buttonTypeCancel);
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == buttonTypeOk) {
+            if (dialogResult) {
                 txtBase.setText("independent");
                 return true;
             } else {
@@ -206,17 +201,9 @@ public class MainController {
 
     @FXML
     private void btnDeleteAction(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmação");
-        alert.setHeaderText(null);
-        alert.setContentText("Deseja realmente deletar esta Distro?");
+        boolean dialogResult = showConfirmation("Deseja realmente deletar esta Distro?");
 
-        ButtonType buttonTypeOk = new ButtonType("Ok", ButtonBar.ButtonData.OK_DONE);
-        ButtonType buttonTypeCancel = new ButtonType("Cancel");
-        alert.getButtonTypes().setAll(buttonTypeOk, buttonTypeCancel);
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() != buttonTypeOk) {
+        if (dialogResult) {
             return;
         }
 

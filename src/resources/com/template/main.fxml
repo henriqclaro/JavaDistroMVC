@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #282828;"
             stylesheets="@styles.css"
             xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.template.MainController">
+            fx:controller="com.template.controller.MainController">
     <children>
         <VBox spacing="18.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
               AnchorPane.topAnchor="20.0">
@@ -35,9 +35,7 @@
                     </image>
                 </ImageView>
 
-                <TableView fx:id="tblDistro" onMouseClicked="#loadField" prefHeight="260.0" prefWidth="643.0" translateY="-33.1,
-0"
-                           VBox.vgrow="ALWAYS">
+                <TableView fx:id="tblDistro" onMouseClicked="#loadField" prefHeight="260.0" prefWidth="643.0" translateY="-33.1" VBox.vgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="colId" minWidth="50.0" prefWidth="60.0" text="ID"/>
                         <TableColumn fx:id="colName" minWidth="100.0" prefWidth="160.0" text="Nome"/>

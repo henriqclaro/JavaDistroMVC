@@ -1,4 +1,7 @@
-package com.template;
+package com.template.model.dao;
+
+import com.template.model.Conn;
+import com.template.model.dto.DistroDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.template.util.DialogUtil.showError;
 
 public class DistroDAO {
 
@@ -27,6 +32,7 @@ public class DistroDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
+            showError("Erro ao registrar distro.");
         }
     }
 
@@ -53,6 +59,7 @@ public class DistroDAO {
 
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
+            showError("Erro ao listar distros.");
         }
 
         return distros;
@@ -75,6 +82,7 @@ public class DistroDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
+            showError("Erro ao atualizar distro.");
         }
     }
 
@@ -92,6 +100,7 @@ public class DistroDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
+            showError("Erro ao excluir distro.");
         }
     }
 }
