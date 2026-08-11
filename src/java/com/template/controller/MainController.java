@@ -2,6 +2,8 @@ package com.template.controller;
 
 import com.template.model.dao.DistroDAO;
 import com.template.model.dto.DistroDTO;
+import com.template.util.FormUtil;
+import com.template.validation.DistroValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -117,11 +119,12 @@ public class MainController {
             btnDelete.setDisable(false);
         }
 
-        if (txtName.getText().isEmpty() || txtPkgMng.getText().isEmpty() || comboEnvironment.getValue() == null) {
+        if (DistroValidator.validateRequiredFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getValue())) {
             btnRegister.setDisable(true);
         } else {
             btnRegister.setDisable(false);
         }
+
     }
 
     @FXML
@@ -140,7 +143,7 @@ public class MainController {
 
     @FXML
     private void btnClearAction(ActionEvent event) {
-        clearForm();
+        FormUtil.clearForm(tblDistro, comboEnvironment, txtName, txtBase, txtPkgMng);
         checkForm();
     }
 
