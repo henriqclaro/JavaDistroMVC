@@ -1,9 +1,19 @@
 package com.template.validation;
 
+import javafx.scene.control.TableView;
+
 public class DistroValidator {
-    public static boolean validateRequiredFields(String name, String pkgMng, String environment) {
-        return (name == null || name.trim().isEmpty() ||
-                pkgMng == null || pkgMng.trim().isEmpty() ||
-                environment == null || environment.trim().isEmpty());
+    public static boolean validateRequiredFields(TableView<?> tableView, String... values) {
+        if (tableView.getSelectionModel().getSelectedItem() != null) {
+            return true;
+        }
+
+        for (String value : values) {
+            if (value == null || value.trim().isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -119,7 +119,7 @@ public class MainController {
             btnDelete.setDisable(false);
         }
 
-        if (DistroValidator.validateRequiredFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText()) || tblDistro.getSelectionModel().getSelectedItem() != null) {
+        if (DistroValidator.validateRequiredFields(tblDistro, txtName.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText())) {
             btnRegister.setDisable(true);
         } else {
             btnRegister.setDisable(false);
