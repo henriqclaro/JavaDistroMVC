@@ -92,11 +92,7 @@ public class MainController {
     }
 
     private void clearForm() {
-        txtName.clear();
-        txtBase.clear();
-        txtPkgMng.clear();
-        comboEnvironment.setValue(null);
-        tblDistro.getSelectionModel().clearSelection();
+        FormUtil.clearForm(tblDistro, comboEnvironment, txtName, txtBase, txtPkgMng);
     }
 
     private boolean isBaseOk() {
@@ -123,7 +119,7 @@ public class MainController {
             btnDelete.setDisable(false);
         }
 
-        if (DistroValidator.validateRequiredFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText())) {
+        if (DistroValidator.validateRequiredFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText()) || tblDistro.getSelectionModel().getSelectedItem() != null) {
             btnRegister.setDisable(true);
         } else {
             btnRegister.setDisable(false);
@@ -147,7 +143,7 @@ public class MainController {
 
     @FXML
     private void btnClearAction(ActionEvent event) {
-        FormUtil.clearForm(tblDistro, comboEnvironment, txtName, txtBase, txtPkgMng);
+        clearForm();
         checkForm();
     }
 
