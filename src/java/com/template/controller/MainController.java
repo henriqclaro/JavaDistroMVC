@@ -76,6 +76,10 @@ public class MainController {
 
         comboEnvironment.setItems(options);
 
+        comboEnvironment.getEditor().textProperty().addListener((observable, oldValue, newValue) -> checkForm());
+
+        comboEnvironment.valueProperty().addListener((observable, oldValue, newValue) -> checkForm());
+
         checkForm();
         loadDistro();
         clearForm();
@@ -119,7 +123,7 @@ public class MainController {
             btnDelete.setDisable(false);
         }
 
-        if (DistroValidator.validateRequiredFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getValue())) {
+        if (DistroValidator.validateRequiredFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText())) {
             btnRegister.setDisable(true);
         } else {
             btnRegister.setDisable(false);
@@ -206,7 +210,7 @@ public class MainController {
     private void btnDeleteAction(ActionEvent event) {
         boolean dialogResult = showConfirmation("Deseja realmente deletar esta Distro?");
 
-        if (dialogResult) {
+        if (!dialogResult) {
             return;
         }
 
