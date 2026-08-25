@@ -1,7 +1,9 @@
 package com.template.validation;
 
+import static com.template.util.DialogUtil.showConfirmation;
+
 public class BaseFieldValidator implements Validator {
-    private final String fieldName = "baseField";
+    private final String fieldName = "Base";
     private final String value;
 
     public BaseFieldValidator(String value) {
@@ -10,7 +12,11 @@ public class BaseFieldValidator implements Validator {
 
     @Override
     public boolean validate(Object value) {
-        return !(this.value == null || this.value.trim().isEmpty());
+        if (!(this.value == null || this.value.trim().isEmpty())) {
+            return false; // arrumar confirmação
+        }
+
+        return true;
     }
 
     @Override
