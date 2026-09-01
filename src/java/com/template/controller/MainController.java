@@ -4,6 +4,7 @@ import com.template.model.dao.DistroDAO;
 import com.template.model.dto.DistroDTO;
 import com.template.util.FormUtil;
 import com.template.validation.DistroValidator;
+import com.template.validation.IDistroValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,8 @@ import java.util.Optional;
 import static com.template.util.DialogUtil.*;
 
 public class MainController {
+    private final IDistroValidator distroValidator;
+
     @FXML
     private TableView<DistroDTO> tblDistro;
 
@@ -59,6 +62,10 @@ public class MainController {
     @FXML
     private ComboBox<String> comboEnvironment;
 
+    public MainController(IDistroValidator distroValidator) {
+        this.distroValidator = distroValidator;
+    }
+
     @FXML
     private void initialize() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -95,34 +102,21 @@ public class MainController {
         FormUtil.clearForm(tblDistro, comboEnvironment, txtName, txtBase, txtPkgMng);
     }
 
-    private boolean isBaseOk() {
-        if (txtBase.getText().isEmpty()) {
-            boolean dialogResult = showConfirmation("O campo de Base está vazio. A Distro será cadastrada como 'independent'.");
-
-            if (dialogResult) {
-                txtBase.setText("independent");
-                return true;
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @FXML
     private void checkForm() {
+        if (FormUtil.checkFields(txtName.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText())) {
+            btnRegister.setDisable(false);
+        } else {
+            btnRegister.setDisable(true);
+        }
+
         if (tblDistro.getSelectionModel().getSelectedItem() == null) {
             btnUpdate.setDisable(true);
             btnDelete.setDisable(true);
         } else {
+            btnRegister.setDisable(true);
             btnUpdate.setDisable(false);
             btnDelete.setDisable(false);
-        }
-
-        if (DistroValidator.validateDistro(txtName.getText(), txtBase.getText(), txtPkgMng.getText(), comboEnvironment.getEditor().getText())) {
-            btnRegister.setDisable(false);
-        } else {
-            btnRegister.setDisable(true);
         }
 
     }
@@ -152,14 +146,17 @@ public class MainController {
         DistroDTO objNewDistro = new DistroDTO();
 
         String name = txtName.getText();
+        String base = txtBase.getText();
         String pkgMng = txtPkgMng.getText();
         String environment = comboEnvironment.getValue().toString();
 
-        if (!isBaseOk()) {
+        if (!distroValidator.validateDistro(name, base, pkgMng, environment)) {
             return;
         }
 
-        String base = txtBase.getText();
+        if (base == null || base.trim().isEmpty()) {
+            base = "independent";
+        }
 
         objNewDistro.setName(name);
         objNewDistro.setBase(base);
@@ -179,14 +176,17 @@ public class MainController {
         DistroDTO objUpdatedDistro = new DistroDTO();
 
         String name = txtName.getText();
+        String base = txtBase.getText();
         String pkgMng = txtPkgMng.getText();
         String environment = comboEnvironment.getValue().toString();
 
-        if (!isBaseOk()) {
+        if (!distroValidator.validateDistro(name, base, pkgMng, environment)) {
             return;
         }
 
-        String base = txtBase.getText();
+        if (base == null || base.trim().isEmpty()) {
+            base = "independent";
+        }
 
         objUpdatedDistro.setId(tblDistro.getSelectionModel().getSelectedItem().getId());
         objUpdatedDistro.setName(name);

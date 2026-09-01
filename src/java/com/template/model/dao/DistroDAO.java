@@ -32,7 +32,7 @@ public class DistroDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
-            showError("Erro ao registrar distro.");
+            showError("Erro em Registrar Distro", e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class DistroDAO {
 
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
-            showError("Erro ao listar distros.");
+            showError("Erro em Listar Distros", e.getMessage());
         }
 
         return distros;
@@ -82,7 +82,7 @@ public class DistroDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
-            showError("Erro ao atualizar distro.");
+            showError("Erro em Atualizar Distro", e.getMessage());
         }
     }
 
@@ -100,7 +100,7 @@ public class DistroDAO {
             preparedStatement.execute();
         } catch (SQLException e) {
             Logger.getLogger(DistroDTO.class.getName()).log(Level.SEVERE, null, e);
-            showError("Erro ao excluir distro.");
+            showError("Erro em Excluir Distro", e.getMessage());
         }
     }
 }

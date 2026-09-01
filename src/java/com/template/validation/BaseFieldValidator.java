@@ -12,8 +12,8 @@ public class BaseFieldValidator implements Validator {
 
     @Override
     public boolean validate(Object value) {
-        if (!(this.value == null || this.value.trim().isEmpty())) {
-            return false; // arrumar confirmação
+        if ((this.value == null || this.value.trim().isEmpty())) {
+            return showConfirmation("O campo de Base está vazio. A Distro será cadastrada como 'independent'.");
         }
 
         return true;
